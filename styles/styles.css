@@ -1,0 +1,169 @@
+/* =====================================================================
+   Daylight Hours Explorer -- sim-specific styles (layered on KL-UNL).
+   The foundation files (kl-unl.css/js) are never edited; everything here
+   is additive and scoped to sim-specific classes.
+   ===================================================================== */
+
+/* Comfortable, zoomable base type for the whole sim */
+.dhe-layout {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  gap: 0.85rem;
+}
+
+/* Plot left (wide) + Settings/Globe right (narrow), matching the original.
+   Higher specificity than foundation's `.app-layout`, with a matching
+   breakpoint so the 56rem single-column collapse is preserved. */
+.dhe-layout.app-layout {
+  grid-template-columns: minmax(0, 1fr) 24rem;
+  align-items: stretch;          /* left panel height == right column total height */
+}
+.dhe-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+/* the two right-hand panels share the extra height so the column fills evenly */
+.dhe-right > .panel:last-child { flex: 1 1 auto; }
+@media (max-width: 56rem) {
+  .dhe-layout.app-layout { grid-template-columns: 1fr; }
+}
+
+/* Panels: tidy headings + internal padding */
+.dhe-layout .panel { padding-bottom: 0.6rem; }
+.dhe-layout .panel__heading {
+  font-size: 1.15rem;
+  border-bottom: 1px solid var(--border-color, #767676);
+  background: #f6f6fa;
+  margin-bottom: 0.6rem;
+}
+.dhe-plot-title { text-align: center; }
+
+/* ---------------- PLOT ---------------- */
+.dhe-plot {
+  position: relative;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  aspect-ratio: 575 / 410;
+  container-type: inline-size;
+}
+#plotCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;            /* allow dragging the point without page scroll */
+}
+.dhe-plot-overlays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.dhe-lbl {
+  position: absolute;
+  color: #000;
+  font-size: clamp(0.5rem, 2.5cqi, 0.85rem);
+  white-space: pre;              /* honour the \n in event labels */
+  line-height: 1.15;
+}
+.dhe-lbl--event { font-style: italic; text-align: center; }
+.dhe-lbl--month { }
+.dhe-lbl--hour  { }
+.dhe-lbl--axis  { font-weight: 700; }
+.dhe-lbl--yaxis { transform-origin: center; white-space: nowrap; }
+
+/* cursor readout tabs (red rounded) */
+.dhe-tab {
+  position: absolute;
+  background: #ff5050;
+  color: #fff;
+  font-size: clamp(0.5rem, 2.6cqi, 0.85rem);
+  font-weight: 600;
+  padding: 0.12em 0.5em;
+  border-radius: 0.5em;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.dhe-plot-options {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+/* ---------------- SETTINGS ---------------- */
+.dhe-field-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  margin-bottom: 0.35rem;
+}
+.dhe-field-label { font-weight: 700; }      /* bold "latitude:" / "day of year:" */
+.dhe-num {
+  width: 4.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.dhe-unit { margin-left: -0.2rem; }
+
+.dhe-select {
+  min-height: 2.2rem;
+  padding: 0.2rem 0.35rem;
+  font-size: 1rem;
+  color: var(--foreground-color, #1a1a1a);
+  background: var(--background-color, #fff);
+  border: 1px solid var(--border-color, #767676);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.dhe-select--day { width: 4.25rem; }
+
+/* both sliders occupy a full-width row -> identical length */
+.dhe-slider-row { margin: 0 0 1rem; }
+.dhe-slider {
+  display: block;
+  width: 100%;
+  min-height: 1.75rem;
+  cursor: pointer;
+  accent-color: var(--button-background-color, #005a9c);
+}
+
+/* ---------------- GLOBE ---------------- */
+.dhe-globe-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 1rem 0;
+}
+#globeCanvas {
+  display: block;
+  width: 100%;
+  max-width: 15rem;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  touch-action: none;
+  border-radius: 4px;
+}
+#globeCanvas:focus-visible {
+  outline: 0.125rem solid var(--outline-color, #005fcc);
+  outline-offset: 2px;
+}
+.dhe-globe-caption {
+  margin: 0.75rem 1rem 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ---------------- narrow / portrait ---------------- */
+@media (max-width: 56rem) {
+  .dhe-right { gap: 0.85rem; }
+  .dhe-plot { max-width: 40rem; }
+}
+@media (max-width: 30rem) {
+  .dhe-layout { font-size: 1.05rem; }
+  .dhe-plot-options { gap: 0.75rem; }
+}

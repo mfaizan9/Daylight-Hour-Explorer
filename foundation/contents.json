@@ -1,0 +1,37 @@
+{
+  "_comment": "Please place new simulation entries (like the newSim example) in alphabetical order.",
+
+  "newSim": {
+    "meta": {
+      "title": "Simulation Title",
+      "version": "2.0"
+    },
+    "masthead": {
+      "help": {
+        "title": "Help and Instructions",
+        "content": "<p>Leave this string completely blank for no Help button.</p>"
+      },
+      "about": {
+        "title": "About this Demonstrator",
+        "content": "<p>For additional astronomy education materials please visit <a href=\"https://astro.unl.edu/\">Astronomy Education</a> at the University of Nebraska-Lincoln.</p><p>This demonstrator has been modernized by the AAS Applet Task Force to meet modern web accessibility standards (WCAG 2.1 AA).</p><p>Initial funding for this work was provided by NSF grants #0231270 and/or #0404988.</p><p>Permission is granted to use these files for noncommercial purposes as long as they remain unmodified.</p>"
+      }
+    }
+  },
+
+  "daylighthoursexplorer": {
+    "meta": {
+      "title": "Daylight Hours Explorer",
+      "version": "2.0"
+    },
+    "masthead": {
+      "help": {
+        "title": "Help and Instructions",
+        "content": "<p>This graph shows the hours of daylight received during the year for an observer at a given latitude. This is an important factor contributing to the seasons.</p><p>Use the latitude and day of year sliders in the Settings panel to make changes to the plot. The globe shows where the Sun's light is directed on the specified day.</p><p>You can drag the globe to change the perspective.</p><p>The precise dates of the equinoxes and solstices vary from year to year. For the next few decades the most common dates will be March 20, June 21, September 22, and December 21.</p>"
+      },
+      "about": {
+        "title": "About this Explorer",
+        "content": "<p>For additional astronomy education materials please visit <a href=\"https://astro.unl.edu/\">Astronomy Education</a> at the University of Nebraska-Lincoln.</p><p>This explorer has been modernized by the AAS Applet Task Force to meet modern web accessibility standards (WCAG 2.1 AA).</p><p>Initial funding for this work was provided by NSF grants #0231270 and/or #0404988.</p><p>Permission is granted to use these files for noncommercial purposes as long as they remain unmodified.</p>"
+      }
+    }
+  }
+}

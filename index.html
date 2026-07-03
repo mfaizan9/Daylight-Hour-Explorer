@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daylight Hours Explorer</title>
+  <link href="foundation/kl-unl.css" type="text/css" rel="stylesheet" media="all">
+  <link href="styles/styles.css" type="text/css" rel="stylesheet" media="all">
+</head>
+<body>
+  <a class="sr-only sr-only-focusable" href="#plot-heading">Skip to simulation</a>
+
+  <div class="app-shell">
+    <kl-unl-masthead sim-id="daylighthoursexplorer" json-url="foundation/contents.json"></kl-unl-masthead>
+
+    <main class="app-layout dhe-layout">
+
+      <!-- ============ PLOT PANEL (primary diagram) ============ -->
+      <section class="panel dhe-panel-plot" aria-labelledby="plot-heading">
+        <h2 class="panel__heading dhe-plot-title" id="plot-heading">Hours of Daylight per Day</h2>
+
+        <div class="panel__canvas-wrap">
+          <div class="dhe-plot" id="plotBox">
+            <canvas id="plotCanvas" width="575" height="410"
+                    role="img"
+                    aria-label="Plot of daylight hours versus day of year. A description of the current state is provided in the status region below."></canvas>
+            <!-- Static + dynamic HTML label overlays are injected here by simulation.js -->
+            <div class="dhe-plot-overlays" id="plotOverlays" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <fieldset class="control-fieldset control-fieldset--plot dhe-plot-options">
+          <legend class="sr-only">Plot options</legend>
+          <div class="control-choice">
+            <input type="checkbox" id="showAverage">
+            <label for="showAverage">show yearly average</label>
+          </div>
+          <div class="control-choice">
+            <input type="checkbox" id="showCursor" checked>
+            <label for="showCursor">show draggable point on curve</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <!-- ============ RIGHT COLUMN: SETTINGS + GLOBE ============ -->
+      <div class="dhe-right">
+
+        <section class="panel" aria-labelledby="settings-heading">
+          <h2 class="panel__heading" id="settings-heading">Settings</h2>
+          <fieldset class="control-fieldset">
+            <legend class="sr-only">Observer and date settings</legend>
+
+            <div class="dhe-field-row">
+              <label class="dhe-field-label" for="latInput">latitude:</label>
+              <input class="control-row__input dhe-num" id="latInput" type="text"
+                     inputmode="decimal" autocomplete="off" maxlength="6"
+                     aria-describedby="latUnit">
+              <span class="dhe-unit" id="latUnit" aria-hidden="true">&deg;</span>
+            </div>
+            <div class="dhe-slider-row">
+              <input class="control-row__slider dhe-slider" id="latSlider" type="range"
+                     min="-90" max="90" step="0.1" value="41"
+                     aria-label="latitude">
+            </div>
+
+            <div class="dhe-field-row">
+              <span class="dhe-field-label" id="doyLabel">day of year:</span>
+              <label class="sr-only" for="monthSelect">month</label>
+              <select class="dhe-select" id="monthSelect">
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+              </select>
+              <label class="sr-only" for="daySelect">day of month</label>
+              <select class="dhe-select dhe-select--day" id="daySelect"></select>
+            </div>
+            <div class="dhe-slider-row">
+              <input class="control-row__slider dhe-slider" id="doySlider" type="range"
+                     min="0" max="364" step="1" value="43"
+                     aria-label="day of year">
+            </div>
+          </fieldset>
+        </section>
+
+        <section class="panel" aria-labelledby="globe-heading">
+          <h2 class="panel__heading" id="globe-heading">Globe</h2>
+          <div class="panel__canvas-wrap dhe-globe-wrap">
+            <canvas id="globeCanvas" width="260" height="260"
+                    tabindex="0"
+                    role="img"
+                    aria-label="Draggable globe showing where the Sun's light falls on the specified day. Use arrow keys to rotate."></canvas>
+          </div>
+          <p class="dhe-globe-caption" id="globeCaption"></p>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Screen-reader live region: announces committed state changes with units -->
+    <div class="sr-only" aria-live="polite" id="liveRegion"></div>
+  </div>
+
+  <script src="foundation/kl-unl.js"></script>
+  <script src="foundation/kl-unl-masthead.js" defer></script>
+  <script type="module" src="simulation.js"></script>
+</body>
+</html>
